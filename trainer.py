@@ -9,6 +9,21 @@ Original file is located at
 **PHASE 3 Error Analysis**
 """
 
+# 👇️ in a virtual environment or using Python 2
+pip install requests
+
+# 👇️ for python 3 (could also be pip3.10 depending on your version)
+pip3 install requests
+
+# 👇️ if you get permissions error
+sudo pip3 install requests
+
+# 👇️ if you don't have pip in your PATH environment variable
+python -m pip install requests
+
+# 👇️ for python 3 (could also be pip3.10 depending on your version)
+python3 -m pip install requests
+
 pip install opencv-python
 
 pip install mediapipe
