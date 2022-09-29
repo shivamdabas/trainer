@@ -2,6 +2,7 @@ from flask import Flask, redirect, url_for, request
 app = Flask(__name__)
 
 import cv2
+import sys
 import mediapipe as mp
 import numpy as np
 import pandas as pd
@@ -48,7 +49,7 @@ def BodyPartDimensions(landmarks, bodyPart):
 We are also printing the image with angle and keypoints using opencv puttext function
 """
 
-def Pushup(landmarks, counter, status, image):
+def pushup(landmarks, counter, status, image):
   l_elbow = BodyPartDimensions(landmarks, "LEFT_ELBOW")
   l_shoulder = BodyPartDimensions(landmarks, "LEFT_SHOULDER")
   l_wrist = BodyPartDimensions(landmarks, "LEFT_WRIST")
@@ -88,7 +89,7 @@ def Pushup(landmarks, counter, status, image):
 
 """Pullup function will count the repitions the user is doing depending upon the y coordinate of shoulder is above average y coordinate of elbows """
 
-def PullupUpdated(landmarks, counter, status,  image):
+def pullup(landmarks, counter, status,  image):
   l_elbow = BodyPartDimensions(landmarks, "LEFT_ELBOW")
   l_shoulder = BodyPartDimensions(landmarks, "LEFT_SHOULDER")
   l_wrist = BodyPartDimensions(landmarks, "LEFT_WRIST")
@@ -173,7 +174,9 @@ def home(name):
 
 @app.route('https://gymtrainer-diploma.herokuapp.com/posted',methods = ['POST'])
 def processResult():
-  cap = cv2.VideoCapture("/content/sample_data/"+exerciseName+".mp4")
+  exercise = request.form.get("exercise")
+  
+  cap = cv2.VideoCapture(request.form.get("filename"))
   counter = 0
   status = 0
 
